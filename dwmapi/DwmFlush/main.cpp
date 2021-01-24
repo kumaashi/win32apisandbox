@@ -68,15 +68,15 @@ int main(int argc, char *argv[])
 	rc.right -= rc.left;
 	rc.bottom -= rc.top;
 	auto hwnd = CreateWindowEx(ex_style, name, name, style,
-		(GetSystemMetrics(SM_CXSCREEN) - rc.right) / 2,
-		(GetSystemMetrics(SM_CYSCREEN) - rc.bottom) / 2,
-		rc.right, rc.bottom, NULL, NULL, instance, NULL);
+			(GetSystemMetrics(SM_CXSCREEN) - rc.right) / 2,
+			(GetSystemMetrics(SM_CYSCREEN) - rc.bottom) / 2,
+			rc.right, rc.bottom, NULL, NULL, instance, NULL);
 	ShowWindow(hwnd, SW_SHOW);
 	SetFocus(hwnd);
 	auto hdc = GetDC(hwnd);
 	void *pbuffer = nullptr;
 	auto hdib = CreateDIBSection(
-		NULL, &bi, DIB_RGB_COLORS, (void **)&pbuffer, 0, 0);
+			NULL, &bi, DIB_RGB_COLORS, (void **)&pbuffer, 0, 0);
 	auto hdibdc = CreateCompatibleDC(NULL);
 	SaveDC(hdibdc);
 	SelectObject(hdibdc, hdib);
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 		{
 			auto col = color[index++ % 2];
 			uint32_t *p = (uint32_t *)pbuffer;
-			for(int i = 0 ; i < w * h; i++)
+			for (int i = 0 ; i < w * h; i++)
 				p[i] = col;
 		}
 
