@@ -44,10 +44,10 @@ window_msg_proc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 int main(int argc, char *argv[])
 {
 	auto name = "DwmFlush";
-	auto w = 1280;
-	auto h = 720;
-	auto sw = w;
-	auto sh = h;
+	auto w = 160 >> 3;
+	auto h = 100 >> 3;
+	auto sw = w * 64;
+	auto sh = h * 64;
 
 	auto instance = GetModuleHandle(NULL);
 	auto style = WS_OVERLAPPEDWINDOW & ~WS_MAXIMIZEBOX & ~WS_THICKFRAME;
@@ -100,16 +100,18 @@ int main(int argc, char *argv[])
 			auto col = color[index++ % 2];
 			uint32_t *p = (uint32_t *)pbuffer;
 			for (int i = 0 ; i < w * h; i++)
-				p[i] = col;
+				p[i] = (rand() * rand());
 		}
 
-		//https://docs.microsoft.com/en-us/windows/win32/api/dwmapi/nf-dwmapi-dwmflush
-		DwmFlush();
+
+		printf("index = %d\n", index % 60);
 
 		if (sw == w && sh == h) {
 			BitBlt(hdc, 0, 0, w, h, hdibdc, 0, 0, SRCCOPY);
 		} else {
 			StretchBlt(hdc, 0, 0, sw, sh, hdibdc, 0, 0, w, h, SRCCOPY);
 		}
+		//https://docs.microsoft.com/en-us/windows/win32/api/dwmapi/nf-dwmapi-dwmflush
+		DwmFlush();
 	}
 }
