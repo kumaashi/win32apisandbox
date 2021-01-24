@@ -103,6 +103,8 @@ int main(int argc, char *argv[])
 				p[i] = (rand() * rand());
 		}
 
+		//https://docs.microsoft.com/en-us/windows/win32/api/dwmapi/nf-dwmapi-dwmflush
+		DwmFlush();
 
 		printf("index = %d\n", index % 60);
 
@@ -111,7 +113,6 @@ int main(int argc, char *argv[])
 		} else {
 			StretchBlt(hdc, 0, 0, sw, sh, hdibdc, 0, 0, w, h, SRCCOPY);
 		}
-		//https://docs.microsoft.com/en-us/windows/win32/api/dwmapi/nf-dwmapi-dwmflush
-		DwmFlush();
+
 	}
 }
